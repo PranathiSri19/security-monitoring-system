@@ -1,0 +1,51 @@
+{
+  "name": "network-monitor",
+  "version": "1.0.0",
+  "description": "A system monitoring tool with APK scanning",
+  "main": "main.js",
+  "type": ".cjs",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.8.1",
+    
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "fs-extra": "^11.1.1",
+    "node-netstat": "^1.9.0",
+    "pcap-parser": "^0.2.1",
+    "ps-list": "^8.1.1",
+    "systeminformation": "^5.25.11"
+  },
+  "devDependencies": {
+    "electron-builder": "^24.6.0"
+  },
+  "build": {
+    "appId": "com.network.monitor",
+    "productName": "Network Monitor",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/.cache"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    }
+  }
+}

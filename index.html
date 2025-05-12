@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Monitor</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; }
+        h1 { text-align: center; color: #333; }
+        #log-container { background: white; padding: 15px; border-radius: 8px; height: 400px; overflow-y: auto; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); }
+        .log-entry { font-size: 14px; padding: 5px; border-bottom: 1px solid #ddd; }
+        .warning { color: orange; }
+        .alert { color: red; }
+        .info { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Security Monitor</h1>
+    <div id="log-container"></div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+
+        ipcRenderer.on('update-monitoring', (event, message) => {
+            const logContainer = document.getElementById("log-container");
+            const logEntry = document.createElement("div");
+            logEntry.classList.add("log-entry");
+
+            if (message.includes("[WARNING]")) logEntry.classList.add("warning");
+            if (message.includes("[ALERT]")) logEntry.classList.add("alert");
+            if (message.includes("[INFO]")) logEntry.classList.add("info");
+
+            logEntry.textContent = message;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight; // Auto-scroll
+        });
+    </script>
+</body>
+</html>
